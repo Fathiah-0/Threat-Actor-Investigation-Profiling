@@ -25,6 +25,25 @@ sector, critical infrastructure, and government organizations.
 
 ---
 
+## Introduction
+
+Threat intelligence supports defensive security by helping analysts understand 
+who an adversary is, how they operate, what infrastructure they use, and what 
+indicators can be monitored to detect or prevent compromise.
+
+This project was conducted as part of a national CERT simulation exercise. 
+Five teams were each assigned one of five suspected threat actor groups believed 
+to be behind a wave of attacks targeting critical infrastructure and government 
+agencies in Europe. Our team (Group 2) was assigned El Machete.
+
+The full workflow covers:
+- Deployment and configuration of MISP using Docker on Kali Linux
+- Loading and enabling real-world threat intelligence feeds
+- Extracting and analyzing Indicators of Compromise (IOCs)
+- Building a complete threat actor profile for El Machete
+- Mapping observed activity to the MITRE ATT&CK framework
+- Delivering detection and mitigation recommendations
+
 ## Methodology & Environment Setup
 
 The investigative environment was prepared on a Kali Linux virtual machine. 
@@ -83,7 +102,7 @@ sudo docker compose up -d
 
 <img width="3840" height="2400" alt="Screenshot 2026-05-19 170955" src="https://github.com/user-attachments/assets/3d249763-5861-41b9-a2cb-a6bdd87b6ed3" />
 
-### 4. Access MISP
+### 3. Access MISP
 
 Once all containers are healthy, access MISP via browser:
 - URL: `http://localhost`
