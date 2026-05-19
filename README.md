@@ -55,5 +55,36 @@ sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 <img width="800" alt="Docker Installation on Kali Linux" src="https://github.com/user-attachments/assets/56f228b5-5f40-4e1f-824f-57842f56d741" />
 
+```bash
+# Install Docker packages
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
+```
+
+<img width="3840" height="2400" alt="Screenshot 2026-02-24 162232" src="https://github.com/user-attachments/assets/f65cd8dd-c143-48f4-a34a-d1e5c4b0ff54" />
+
+<img width="3840" height="2400" alt="Screenshot 2026-02-24 162256" src="https://github.com/user-attachments/assets/8cfafbb5-9df9-42af-ac39-076da0db1ae2" />
+
+
+
+### 2. Clone MISP Docker Repository
+```bash
+sudo apt install git
+git clone https://github.com/MISP/misp-docker
+cd misp-docker/
+cp template.env .env
+```
+
+<img width="3840" height="2400" alt="Screenshot 2026-02-24 162631" src="https://github.com/user-attachments/assets/de35da34-f610-4a45-b28c-f4add7f5bfe2" />
+
+```bash
+# Pull the images
+sudo docker compose pull
+
+# Start MISP
+sudo docker compose up -d
+```
+
+<img width="3840" height="2400" alt="Screenshot 2026-05-19 170955" src="https://github.com/user-attachments/assets/3d249763-5861-41b9-a2cb-a6bdd87b6ed3" />
 
