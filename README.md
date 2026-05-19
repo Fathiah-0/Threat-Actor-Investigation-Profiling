@@ -329,3 +329,116 @@ strongly supporting an espionage mission rather than simple monetization.
 - wscript.exe
 - certutil.exe
 - Scheduled Tasks
+
+---
+
+## MITRE ATT&CK Mapping
+
+The observed activity aligns with known El Machete behaviour across multiple 
+MITRE ATT&CK tactics.
+
+| Tactic | Technique IDs | Observed Behaviour |
+|---|---|---|
+| Initial Access | T1566.001, T1566.002 | Spear-phishing attachments and links carrying malicious files |
+| Execution | T1059.006, T1218.007 | Python scripts, macros, batch files, and msiexec-based execution |
+| Persistence | T1053.005, T1547.001 | Scheduled tasks and Registry/Startup persistence |
+| Defense Evasion | T1036.005, T1027 | Masquerading as legitimate software and code obfuscation |
+| Collection | T1056.001, T1113, T1125 | Keylogging, screenshots, webcam/audio capture, browser data theft |
+| Command & Control | T1071.001, T1071.002 | HTTP and FTP communication to attacker infrastructure |
+| Exfiltration | T1041, T1052.001 | Data exfiltration over C2 channels and physical media |
+
+---
+
+### IOC-to-TTP Mapping
+
+| Observed IOC Pattern | Likely Technique | Analytical Meaning |
+|---|---|---|
+| .scr files disguised as documents | Spear-phishing attachment | Victims tricked into running malware appearing as a legitimate document |
+| Archive download URLs (.rar/.zip) | Malware delivery / user execution | Payloads staged behind convincing lures |
+| GoogleUpdate.exe / Chrome.exe | Masquerading | Malware disguised as trusted software to reduce suspicion |
+| %AppData% directories and scheduled tasks | Persistence | Malicious components survive reboots and maintain access |
+| Destination IPs and rotating domains | Command and Control | Infrastructure supports remote control and exfiltration |
+| Repeated hashes across events | Payload reuse | Campaigns linked through shared malware families |
+
+
+---
+
+## Threat Assessment
+
+| Assessment Metric | Value |
+|---|---|
+| Threat Type | Advanced Persistent Threat / Cyber Espionage |
+| Primary Motivation | Strategic intelligence collection |
+| Technical Sophistication | Low to medium, but persistent and adaptive |
+| Primary Victim Sectors | Government, military, diplomatic, telecoms, energy |
+| Overall Risk Level | **Medium to High** |
+
+El Machete should be considered a medium-to-high threat to organizations that 
+manage politically, diplomatically, militarily, or strategically valuable 
+information. The group does not rely on the most advanced zero-day techniques; 
+however, its effectiveness comes from persistence, believable lures, tailored 
+targeting, and the ability to remain quiet inside victim environments for long 
+periods.
+
+The risk is heightened by the group's focus on espionage rather than immediate 
+disruption. In many cases, espionage actors aim to stay undetected while stealing 
+information continuously, meaning the business impact may include data leakage, 
+intelligence loss, reputational harm, and long-term exposure.
+
+---
+
+## Detection and Mitigation Recommendations
+
+### Email Security
+- Strengthen email security controls to detect and quarantine suspicious archive 
+files, executable attachments, and socially engineered messages using government 
+or military-themed document names
+
+### Network Controls
+- Block or closely monitor known malicious IPs, domains, and hostnames identified 
+in this report
+- Use network detection logic to identify unexpected FTP over port 21, repeated 
+connections to dynamic DNS domains, and unusual data uploads from high-value endpoints
+
+### Endpoint Detection
+- Monitor for execution of unusual .scr files and suspicious archive extraction 
+followed by executable launch
+- Monitor processes impersonating legitimate software names such as Chrome, 
+GoogleUpdate, Java, or Python
+- Review scheduled tasks, startup entries, and %AppData% execution paths for 
+persistence indicators
+- Deploy EDR capabilities with behavioural rules for keylogging, screenshot 
+capture, browser credential theft, and suspicious outbound FTP or HTTP activity
+
+### User Awareness
+- Provide training focused on highly targeted spear-phishing and document-lure 
+attacks, especially for staff in sensitive government or administrative roles
+
+### Threat Intelligence
+- Maintain a threat intelligence process that continuously ingests new IOCs into 
+monitoring workflows and revisits historical logs when new indicators become available
+
+---
+
+## Conclusion
+
+This project demonstrated the practical value of MISP for structured threat 
+intelligence work. The platform was successfully deployed, feeds were configured, 
+events were queried, and indicator data was extracted in a way that supports both 
+technical detection and threat actor profiling.
+
+The evidence reviewed aligns strongly with El Machete, a persistent espionage 
+actor that combines social engineering, malware masquerading, and long-term data 
+collection against strategic targets. The collected indicators and their correlation 
+across events provide a usable basis for monitoring, hunting, and defensive hardening.
+
+---
+
+## References
+
+- MITRE ATT&CK Group G0095 — https://attack.mitre.org/groups/G0095/
+- ESET Research: Machete just got sharper (2019)
+- CIRCL: OSINT Sharpening the Machete (2019)
+- CIRCL: El Machete Malware Attacks Cut Through LATAM (2017)
+- FireHOL Blocklist — https://github.com/firehol/blocklist-ipsets
+- MISP Project — https://www.misp-project.org
