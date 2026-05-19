@@ -7,7 +7,7 @@
 
 This project documents a hands-on threat intelligence investigation conducted 
 as part of a national CERT simulation exercise. The working environment was 
-built on Kali Linux using Docker to deploy MISP (Malware Information Sharing 
+built on ubuntu using Docker to deploy MISP (Malware Information Sharing 
 Platform) locally.
 
 Default threat intelligence feeds were loaded, a custom FireHOL Malicious IP 
@@ -37,49 +37,45 @@ to be behind a wave of attacks targeting critical infrastructure and government
 agencies in Europe. Our team (Group 2) was assigned El Machete.
 
 The full workflow covers:
-- Deployment and configuration of MISP using Docker on Kali Linux
+- Deployment and configuration of MISP using Docker on Ubuntu
 - Loading and enabling real-world threat intelligence feeds
 - Extracting and analyzing Indicators of Compromise (IOCs)
 - Building a complete threat actor profile for El Machete
 - Mapping observed activity to the MITRE ATT&CK framework
 - Delivering detection and mitigation recommendations
-
 ## Methodology & Environment Setup
 
-The investigative environment was prepared on a Kali Linux virtual machine. 
-The setup involved the following steps:
----
+The investigative environment was prepared on an **Ubuntu** virtual machine. The setup involved the following steps:
 
-**1. Install Docker**
+### 1. Install Docker
 
 ```bash
 # Add Docker's official GPG key
 sudo apt-get update
 sudo apt-get install ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
-```bash
+
+
 # Add Docker's repository
 echo \
 "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] \
-https://download.docker.com/linux/debian bookworm stable" | \
+https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | \
 sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-```
 
-<img width="800" alt="Docker Installation on Kali Linux" src="https://github.com/user-attachments/assets/56f228b5-5f40-4e1f-824f-57842f56d741" />
+```
+<img width="800" alt="Docker Installation on Ubuntu" src="https://github.com/user-attachments/assets/56f228b5-5f40-4e1f-824f-57842f56d741" />
 
 ```bash
+
 # Install Docker packages
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
 ```
+<img width="800" alt="Docker Installation Screenshots" src="https://github.com/user-attachments/assets/f65cd8dd-c143-48f4-a34a-d1e5c4b0ff54" />
 
-<img width="3840" height="2400" alt="Screenshot 2026-02-24 162232" src="https://github.com/user-attachments/assets/f65cd8dd-c143-48f4-a34a-d1e5c4b0ff54" />
-
-<img width="3840" height="2400" alt="Screenshot 2026-02-24 162256" src="https://github.com/user-attachments/assets/8cfafbb5-9df9-42af-ac39-076da0db1ae2" />
-
+<img width="800" alt="Screenshot 2026-02-24 162256" src="https://github.com/user-attachments/assets/8cfafbb5-9df9-42af-ac39-076da0db1ae2" />
 
 
 ### 2. Clone MISP Docker Repository
@@ -90,17 +86,21 @@ cd misp-docker/
 cp template.env .env
 ```
 
-<img width="3840" height="2400" alt="Screenshot 2026-02-24 162631" src="https://github.com/user-attachments/assets/de35da34-f610-4a45-b28c-f4add7f5bfe2" />
+<img width="800" alt="Screenshot 2026-02-24 162631" src="https://github.com/user-attachments/assets/de35da34-f610-4a45-b28c-f4add7f5bfe2" />
 
 ```bash
-# Pull the images
+# Pull the latest images
 sudo docker compose pull
+```
+<img width="800" alt="Screenshot 2026-02-24 170207" src="https://github.com/user-attachments/assets/c3e8318a-91c6-4ef7-8cd4-43916cadd581" />
 
+
+```bash
 # Start MISP
 sudo docker compose up -d
 ```
 
-<img width="3840" height="2400" alt="Screenshot 2026-05-19 170955" src="https://github.com/user-attachments/assets/3d249763-5861-41b9-a2cb-a6bdd87b6ed3" />
+<img width="800" alt="Screenshot 2026-05-19 170955" src="https://github.com/user-attachments/assets/3d249763-5861-41b9-a2cb-a6bdd87b6ed3" />
 
 ### 3. Access MISP
 
@@ -114,7 +114,7 @@ Once all containers are healthy, access MISP via browser:
 > fully accessible, confirming successful deployment.
 
 
-<img width="3840" height="2400" alt="Screenshot 2026-05-19 173120" src="https://github.com/user-attachments/assets/9ce63de8-a09f-49d9-a980-9d9b5211f301" />
+<img width="800" alt="Screenshot 2026-05-19 173120" src="https://github.com/user-attachments/assets/9ce63de8-a09f-49d9-a980-9d9b5211f301" />
 
 ---
 
@@ -134,7 +134,7 @@ Steps to enable default feeds:
 4. Click **Enable Caching for Selected**
 5. Click **Fetch All Events**
 
-<img width="3840" height="2400" alt="Screenshot 2026-05-19 173925" src="https://github.com/user-attachments/assets/49bb52d0-4b89-447f-aa2f-7107ad71ce2d" />
+<img width="800" alt="Screenshot 2026-05-19 173925" src="https://github.com/user-attachments/assets/49bb52d0-4b89-447f-aa2f-7107ad71ce2d" />
 
 *Figure 5: MISP Feeds page showing enabled default feeds*
 
@@ -153,7 +153,7 @@ A custom feed was added with the following configuration:
 | Source Format | Freetext |
 | Distribution | Your organisation only |
 
-<img width="3840" height="2400" alt="Screenshot 2026-05-19 174124" src="https://github.com/user-attachments/assets/155e11f3-fe27-4cf3-8d8f-872f9de63362" />
+<img width="800" alt="Screenshot 2026-05-19 174124" src="https://github.com/user-attachments/assets/155e11f3-fe27-4cf3-8d8f-872f9de63362" />
 
 *Figure 6: Custom FireHOL Malicious IPs feed configuration*
 
@@ -167,7 +167,7 @@ A custom tag was created to classify feed data:
 - **Created under:** Event Actions → Tag Actions → Add Tag
 - **Purpose:** Labels events imported from the FireHOL feed for easy filtering
 
-<img width="3840" height="2400" alt="Screenshot 2026-05-19 174850" src="https://github.com/user-attachments/assets/3b357189-3fae-4383-bdfa-94c2b9239c51" />
+<img width="800" alt="Screenshot 2026-05-19 174850" src="https://github.com/user-attachments/assets/3b357189-3fae-4383-bdfa-94c2b9239c51" />
 
 
 *Figure 7: Custom tag feed-source:firehol applied to imported events*
@@ -182,21 +182,21 @@ used to verify that imported data was queryable and usable for threat analysis.
 
 ### Event Creation and Verification
 
-<img width="3840" height="2400" alt="Screenshot 2026-05-19 174850" src="https://github.com/user-attachments/assets/8c8c75ff-5654-4beb-8cef-518b441f1284" />
+<img width="800" alt="Screenshot 2026-05-19 174850" src="https://github.com/user-attachments/assets/8c8c75ff-5654-4beb-8cef-518b441f1284" />
 
-<img width="3840" height="2400" alt="Screenshot 2026-05-19 175851" src="https://github.com/user-attachments/assets/4b193574-b7ff-42ab-b538-e4c45810a21f" />
+<img width="800" alt="Screenshot 2026-05-19 175851" src="https://github.com/user-attachments/assets/4b193574-b7ff-42ab-b538-e4c45810a21f" />
 
 *Figure 8: FireHOL Malicious IPs event details showing Event ID 547 and feed-source:firehol tag*
 
-<img width="3840" height="2400" alt="Screenshot 2026-05-19 180645" src="https://github.com/user-attachments/assets/c51a762a-7279-4515-a4b2-3a6039d7ec21" />
+<img width="800" alt="Screenshot 2026-05-19 180645" src="https://github.com/user-attachments/assets/c51a762a-7279-4515-a4b2-3a6039d7ec21" />
 
 *Figure 10: Search Attributes interface used to query indicators inside MISP*
 
-<img width="3840" height="2400" alt="Screenshot 2026-05-19 180718" src="https://github.com/user-attachments/assets/19ab7946-c67a-4017-b36d-59122776fac7" />
+<img width="800" alt="Screenshot 2026-05-19 180718" src="https://github.com/user-attachments/assets/19ab7946-c67a-4017-b36d-59122776fac7" />
 
-<img width="3840" height="2400" alt="Screenshot 2026-05-19 180739" src="https://github.com/user-attachments/assets/24c88718-0874-4fb6-82a9-e6aa85fd2b45" />
+<img width="800" alt="Screenshot 2026-05-19 180739" src="https://github.com/user-attachments/assets/24c88718-0874-4fb6-82a9-e6aa85fd2b45" />
 
-<img width="3840" height="2400" alt="Screenshot 2026-05-19 180826" src="https://github.com/user-attachments/assets/b331ed9f-db49-49df-97bd-40ed516a0373" />
+<img width="800" alt="Screenshot 2026-05-19 180826" src="https://github.com/user-attachments/assets/b331ed9f-db49-49df-97bd-40ed516a0373" />
 
 
 *Figure 11: Events list filtered to show El Machete related events*
