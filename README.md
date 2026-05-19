@@ -96,3 +96,59 @@ Once all containers are healthy, access MISP via browser:
 
 
 <img width="3840" height="2400" alt="Screenshot 2026-05-19 173120" src="https://github.com/user-attachments/assets/9ce63de8-a09f-49d9-a980-9d9b5211f301" />
+
+---
+
+## MISP Access and Feed Configuration
+
+After deployment, the MISP login page was accessed through http://localhost. 
+Default feed metadata was loaded from the Feeds page. Only the first three 
+default feeds were enabled. Feed caching was also enabled so that event data 
+could be stored locally and reviewed inside the platform.
+
+### Default Feeds
+
+Steps to enable default feeds:
+1. Click on **Sync Actions** then select **Feeds**
+2. Click **Load Default Feed Metadata**
+3. Select the first three feeds and click **Enable Selected**
+4. Click **Enable Caching for Selected**
+5. Click **Fetch All Events**
+
+<img width="3840" height="2400" alt="Screenshot 2026-05-19 173925" src="https://github.com/user-attachments/assets/49bb52d0-4b89-447f-aa2f-7107ad71ce2d" />
+
+*Figure 5: MISP Feeds page showing enabled default feeds*
+
+---
+
+### Custom Feed — FireHOL Malicious IPs
+
+A custom feed was added with the following configuration:
+
+| Field | Value |
+|---|---|
+| Feed Name | FireHOL Malicious IPs |
+| Provider | FireHOL |
+| Input Source | Network |
+| URL | https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level1.netset |
+| Source Format | Freetext |
+| Distribution | Your organisation only |
+
+<img width="3840" height="2400" alt="Screenshot 2026-05-19 174124" src="https://github.com/user-attachments/assets/155e11f3-fe27-4cf3-8d8f-872f9de63362" />
+
+*Figure 6: Custom FireHOL Malicious IPs feed configuration*
+
+---
+
+### Custom Tag
+
+A custom tag was created to classify feed data:
+
+- **Tag Name:** `feed-source:firehol`
+- **Created under:** Event Actions → Tag Actions → Add Tag
+- **Purpose:** Labels events imported from the FireHOL feed for easy filtering
+
+<img width="3840" height="2400" alt="Screenshot 2026-05-19 174850" src="https://github.com/user-attachments/assets/3b357189-3fae-4383-bdfa-94c2b9239c51" />
+
+
+*Figure 7: Custom tag feed-source:firehol applied to imported events*
