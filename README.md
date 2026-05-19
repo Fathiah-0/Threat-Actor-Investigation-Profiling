@@ -29,11 +29,6 @@ sector, critical infrastructure, and government organizations.
 
 The investigative environment was prepared on a Kali Linux virtual machine. 
 The setup involved the following steps:
-
-### Correct Way to Paste in Your README:
-
-Here is the full clean section again. **Copy everything below** and paste it directly into your README editor:
-
 ---
 
 **1. Install Docker**
@@ -88,3 +83,16 @@ sudo docker compose up -d
 
 <img width="3840" height="2400" alt="Screenshot 2026-05-19 170955" src="https://github.com/user-attachments/assets/3d249763-5861-41b9-a2cb-a6bdd87b6ed3" />
 
+### 4. Access MISP
+
+Once all containers are healthy, access MISP via browser:
+- URL: `http://localhost`
+- Email: `admin@admin.test`
+- Password: `admin`
+
+> Note: During deployment, temporary warnings involving misp-modules and the 
+> database service were observed. Despite these, the MISP web interface became 
+> fully accessible, confirming successful deployment.
+
+
+<img width="3840" height="2400" alt="Screenshot 2026-05-19 173120" src="https://github.com/user-attachments/assets/9ce63de8-a09f-49d9-a980-9d9b5211f301" />
