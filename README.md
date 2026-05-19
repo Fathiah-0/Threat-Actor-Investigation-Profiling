@@ -245,3 +245,87 @@ as official reports and judicial notices reflect classic social engineering.
 Executable names such as GoogleUpdate.exe and Chrome.exe attempt to hide 
 malicious tooling behind familiar software names. The large number of MD5 and 
 SHA256 hashes confirms payload reuse across multiple campaigns.
+
+
+---
+
+## Threat Actor Profile: El Machete
+
+### Identity and Background
+
+| Attribute | Details |
+|---|---|
+| Also Known As | APT-C-43, G0095 |
+| Origin | Latin America (assessed) |
+| Active Since | 2010 |
+| MITRE ATT&CK ID | G0095 |
+| Motivation | Cyber espionage / strategic intelligence collection |
+| Technical Sophistication | Low to Medium, but persistent and adaptive |
+
+El Machete is a Spanish-speaking cyber espionage group assessed to be based 
+in Latin America. Attribution remains analytically assessed rather than formally 
+confirmed, but linguistic evidence, victimology, and operational patterns strongly 
+suggest origins in South or Central America.
+
+The group has been active since at least 2010 and has remained operational even 
+after several public disclosures by major security researchers. Public reporting 
+in 2014, 2017, 2019, and the early 2020s shows continued adaptation rather than 
+disappearance, consistent with a persistent intelligence collection actor.
+
+---
+
+### Motivation
+
+El Machete is primarily motivated by cyber espionage and long-term intelligence 
+gathering. The group repeatedly targets military, governmental, diplomatic, and 
+strategic organizations rather than focusing on financially motivated crimes such 
+as ransomware or direct bank fraud.
+
+Stolen data includes government correspondence, military documents, navigation 
+routes, geolocation data, browser credentials, and surveillance material — 
+strongly supporting an espionage mission rather than simple monetization.
+
+---
+
+### Known Targets and Campaigns
+
+**Primary Target Sectors:**
+- Government and military institutions
+- Intelligence services and embassies
+- Law enforcement bodies
+- Telecommunications providers
+- Energy organizations
+
+**Geographic Focus:**
+- Venezuela, Ecuador, Colombia, Peru, Cuba, Argentina, Bolivia, Nicaragua
+- Additional victims reported in the US, Russia, Spain, Germany, UK, and Asia
+
+**Notable Campaigns:**
+| Campaign | Year | Description |
+|---|---|---|
+| Machete Campaign | 2014 | Large-scale attacks on Latin American military and government targets |
+| Sharpening the Machete | 2019 | Mass exfiltration from Venezuelan institutions |
+| Russia-Ukraine Lures | 2022+ | Geopolitically themed decoy documents used as phishing lures |
+
+---
+
+### Tools and Malware
+
+**Core Malware:** Machete (also known as Pyark / Fpyark)
+- Python-based modular spyware
+- Packaged into Windows executables using PyInstaller
+
+**Documented Capabilities:**
+- Keylogging
+- Screen capture
+- Audio and video recording
+- Browser credential theft
+- Clipboard monitoring
+- File enumeration and exfiltration
+- Geolocation tracking
+
+**Abused Legitimate Tools:**
+- msiexec.exe
+- wscript.exe
+- certutil.exe
+- Scheduled Tasks
