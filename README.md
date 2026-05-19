@@ -21,3 +21,55 @@ sustained data exfiltration over FTP and HTTP channels.
 
 Overall threat level assessed as: **Medium to High** — particularly for public 
 sector, critical infrastructure, and government organizations.
+
+
+---
+
+## Methodology & Environment Setup
+
+The investigative environment was prepared on a Kali Linux virtual machine. 
+The setup involved the following steps:
+
+### 1. Install Docker
+```bash
+# Add Docker's official GPG key
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add Docker's repository
+echo \
+"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] \
+https://download.docker.com/linux/debian bookworm stable" | \
+sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# Install Docker packages
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+### 2. Clone MISP Docker Repository
+```bash
+sudo apt install git
+git clone https://github.com/MISP/misp-docker
+cd misp-docker/
+cp template.env .env
+```
+
+### 3. Pull and Start MISP
+```bash
+sudo docker compose pull
+sudo docker compose up -d
+```
+
+### 4. Access MISP
+Once all containers are healthy, access MISP via browser:
+- URL: `http://localhost`
+- Email: `admin@admin.test`
+- Password: `admin`
+
+> Note: During deployment, temporary warnings involving misp-modules and the 
+> database service were observed and documented. Despite these, the MISP web 
+> interface became fully accessible, confirming successful deployment.
