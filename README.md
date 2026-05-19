@@ -152,3 +152,96 @@ A custom tag was created to classify feed data:
 
 
 *Figure 7: Custom tag feed-source:firehol applied to imported events*
+
+---
+
+## Data Collection and IOC Extraction
+
+Once the feeds were configured, events were queried and indicator data was 
+extracted through the MISP web interface. The Search Attributes interface was 
+used to verify that imported data was queryable and usable for threat analysis.
+
+### Event Creation and Verification
+
+<img width="3840" height="2400" alt="Screenshot 2026-05-19 174850" src="https://github.com/user-attachments/assets/8c8c75ff-5654-4beb-8cef-518b441f1284" />
+
+<img width="3840" height="2400" alt="Screenshot 2026-05-19 175851" src="https://github.com/user-attachments/assets/4b193574-b7ff-42ab-b538-e4c45810a21f" />
+
+*Figure 8: FireHOL Malicious IPs event details showing Event ID 547 and feed-source:firehol tag*
+
+<img width="3840" height="2400" alt="Screenshot 2026-05-19 180645" src="https://github.com/user-attachments/assets/c51a762a-7279-4515-a4b2-3a6039d7ec21" />
+
+*Figure 10: Search Attributes interface used to query indicators inside MISP*
+
+<img width="3840" height="2400" alt="Screenshot 2026-05-19 180718" src="https://github.com/user-attachments/assets/19ab7946-c67a-4017-b36d-59122776fac7" />
+
+<img width="3840" height="2400" alt="Screenshot 2026-05-19 180739" src="https://github.com/user-attachments/assets/24c88718-0874-4fb6-82a9-e6aa85fd2b45" />
+
+<img width="3840" height="2400" alt="Screenshot 2026-05-19 180826" src="https://github.com/user-attachments/assets/b331ed9f-db49-49df-97bd-40ed516a0373" />
+
+
+*Figure 11: Events list filtered to show El Machete related events*
+
+---
+
+### IOC Summary
+
+| IOC Category | Count |
+|---|---|
+| Destination IPs | 10 |
+| Domains | 3 |
+| URLs | 9 |
+| Filenames | 37 |
+| MD5 Hashes | 99 |
+| SHA256 Hashes | 57 |
+
+---
+
+### Key Indicators
+
+**Destination IP Addresses (C2 Infrastructure)**
+- 185.224.137.63
+- 156.67.222.88
+- 158.69.9.209
+- 142.44.236.215
+- 199.79.63.188
+- 109.61.164.33
+- 176.9.3.184
+- 213.239.232.149
+- 69.64.43.33
+- 181.50.98.50
+
+**Domains**
+- tobabean.expert
+- koliast.com
+- artyomt.com
+
+**Hostnames**
+- jristr.hopto.org
+- lawyersofficial.mipropia.com
+- mcsi.gotdns.ch
+- djcaps.gotdns.ch
+
+**Sample Malicious URLs**
+- http://actualizacion.esy.es/Mision_Secreta_de_la_DINA_en_Washigton.rar
+- http://cristianoo.esy.es/Padrino_Lopez_Hay_un_golpe_de_Estado_en_desarrollo.zip
+- http://informesanddocumentos.esy.es/semanario_en_marcha_1758_1.zip
+
+**Notable Filenames**
+- GoogleUpdate.exe / Chrome.exe / GoogleCrash.exe *(masquerading as legitimate software)*
+- python27.exe / Python_27.exe
+- 977_REG_IN_CO_012_V1.scr
+- ORDENES_GENERALES.scr
+- Mision_Secreta_de_la_DINA_en_Washigton.scr
+
+---
+
+### Interpretation
+
+The IP addresses are historically associated with El Machete C2 activity. 
+The URLs are crafted to resemble legitimate government or media documents in 
+Spanish but deliver compressed archives containing malware. Filenames disguised 
+as official reports and judicial notices reflect classic social engineering. 
+Executable names such as GoogleUpdate.exe and Chrome.exe attempt to hide 
+malicious tooling behind familiar software names. The large number of MD5 and 
+SHA256 hashes confirms payload reuse across multiple campaigns.
